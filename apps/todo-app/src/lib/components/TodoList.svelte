@@ -1,10 +1,14 @@
 <script lang="ts">
-	import type { Todo } from '$lib/types/todo';
 	import { fade, slide } from 'svelte/transition';
+	import type { Todo } from '$lib/types/todo';
 
-	export let todos: Todo[] = [];
-	export let onToggleComplete: (id: number) => void;
-	export let onRemove: (id: number) => void;
+	interface Props {
+		todos: Todo[];
+		onToggleComplete: (id: number) => void;
+		onRemove: (id: number) => void;
+	}
+
+	let { todos = [], onToggleComplete, onRemove }: Props = $props();
 </script>
 
 <ul class="space-y-4">
@@ -17,7 +21,7 @@
 			<button
 				type="button"
 				class="flex items-center gap-4"
-				on:click={() => onToggleComplete(todo.id)}
+				onclick={() => onToggleComplete(todo.id)}
 			>
 				<input
 					type="checkbox"
@@ -35,7 +39,7 @@
 
 			<button
 				type="button"
-				on:click={() => onRemove(todo.id)}
+				onclick={() => onRemove(todo.id)}
 				class="flex h-6 w-6 items-center justify-center text-lg text-red-500 transition-colors hover:text-red-700"
 			>
 				×

@@ -15,7 +15,7 @@
     "node": ">=18"
   },
   "name": "revance-test",
-  "packageManager": "npm@10.1.0",
+  "packageManager": "pnpm@9.15.2",
   "workspaces": [
     "apps/*",
     "packages/*"

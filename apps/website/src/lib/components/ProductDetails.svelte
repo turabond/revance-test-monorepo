@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import Slide from '$lib/components/Slide.svelte';
 	import SlideNavigation from './SlideNavigation.svelte';
 	import SlideBullets from './SlideBullets.svelte';
@@ -12,7 +12,7 @@
 		{ src: '/product/3_3.jpg' }
 	];
 
-	let currentSlide = 0;
+	let currentSlide = $state(0);
 	let interval: ReturnType<typeof setInterval>;
 
 	const playSlides = () => {
@@ -25,13 +25,13 @@
 
 	const nextSlide = () => {
 		stopSlides();
-		currentSlide = currentSlide === slides.length - 1 ? 0 : currentSlide + 1;
+		currentSlide = (currentSlide + 1) % slides.length;
 		playSlides();
 	};
 
 	const prevSlide = () => {
 		stopSlides();
-		currentSlide = currentSlide === 0 ? slides.length - 1 : currentSlide - 1;
+		currentSlide = (currentSlide - 1 + slides.length) % slides.length;
 		playSlides();
 	};
 
@@ -43,8 +43,10 @@
 
 	onMount(() => {
 		playSlides();
+	});
 
-		return () => stopSlides();
+	onDestroy(() => {
+		stopSlides();
 	});
 </script>
 

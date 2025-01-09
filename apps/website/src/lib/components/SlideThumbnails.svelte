@@ -1,17 +1,21 @@
 <script lang="ts">
-	export let slides: { src: string }[];
-	export let currentSlide: number;
-	export let goToSlide: (index: number) => void;
+	interface Props {
+		slides: { src: string }[];
+		currentSlide: number;
+		goToSlide: (index: number) => void;
+	}
 
-	$: nextIndex = (currentSlide + 1) % slides.length;
-	$: prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+	let { slides, currentSlide, goToSlide }: Props = $props();
+
+	let nextIndex = $derived((currentSlide + 1) % slides.length);
+	let prevIndex = $derived((currentSlide - 1 + slides.length) % slides.length);
 </script>
 
 <div class="flex h-full w-full flex-1 gap-6 lg:flex-col lg:justify-end lg:gap-10">
 	<button
 		type="button"
 		class="lg:h-1/2 lg:w-full"
-		on:click={() => goToSlide(nextIndex)}
+		onclick={() => goToSlide(nextIndex)}
 		aria-label="Next Slide"
 	>
 		<img
@@ -24,7 +28,7 @@
 	<button
 		type="button"
 		class="lg:h-1/3 lg:w-full"
-		on:click={() => goToSlide(prevIndex)}
+		onclick={() => goToSlide(prevIndex)}
 		aria-label="Previous Slide"
 	>
 		<img

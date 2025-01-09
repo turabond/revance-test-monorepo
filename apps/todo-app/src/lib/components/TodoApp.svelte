@@ -4,14 +4,14 @@
 	import TodoList from '$lib/components/TodoList.svelte';
 	import TodoInput from '$lib/components/TodoInput.svelte';
 
-	let todos: Todo[] = [
+	let todos: Todo[] = $state([
 		{ id: 1, text: 'Navigation hover', completed: true },
 		{ id: 2, text: 'Gradient background logo', completed: true },
 		{ id: 3, text: 'Website', completed: true },
 		{ id: 4, text: 'To do application', completed: true }
-	];
+	]);
 
-	let newTodo = '';
+	let newTodo = $state('');
 
 	const addTodo = () => {
 		if (newTodo.trim()) {
@@ -42,7 +42,7 @@
 <div class="w-full max-w-3xl rounded-xl bg-white p-6 shadow-lg md:p-12">
 	<h1 class="mb-8 text-center text-3xl font-extrabold text-gray-800 md:text-5xl">To-Do List</h1>
 
-	<TodoInput bind:value={newTodo} on:input={onInput} on:keydown={onKeyDown} on:click={addTodo} />
+	<TodoInput value={newTodo} oninput={onInput} onkeydown={onKeyDown} onclick={addTodo} />
 
 	{#if todos.length > 0}
 		<TodoList {todos} onToggleComplete={toggleComplete} onRemove={removeTodo} />

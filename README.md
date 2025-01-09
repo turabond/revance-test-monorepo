@@ -62,7 +62,7 @@ Navigate to a specific project folder (e.g., `apps/todo-app`) and use:
 
 Or use Turbo's filtering:
 
-- `turbo run dev  --filter=todo-app:`: Starts the development server for todo-app.
+- `turbo run dev  --filter=todo-app`: Starts the development server for todo-app.
 - `turbo run build  --filter=todo-app`: Builds only todo-app.
 
 ---

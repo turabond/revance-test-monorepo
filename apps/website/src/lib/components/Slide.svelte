@@ -1,9 +1,13 @@
 <script lang="ts">
-	import { cubicOut } from 'svelte/easing';
 	import { fade } from 'svelte/transition';
+	import { cubicOut } from 'svelte/easing';
 
-	export let currentSlide = 0;
-	export let slides: { src: string }[];
+	interface Props {
+		currentSlide: number;
+		slides: { src: string }[];
+	}
+
+	let { currentSlide = 0, slides }: Props = $props();
 </script>
 
 {#key currentSlide}
